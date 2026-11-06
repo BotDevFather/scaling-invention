@@ -261,13 +261,24 @@ async function request(path, options = {}) {
 }
 
 async function configRequest(payload) {
-  const response = await fetch("/api/bot-config", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 20000);
+  let response;
+  try {
+    response = await fetch("/api/bot-config", {
+      method: "POST",
+      signal: ctrl.signal,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+  } catch (e) {
+    clearTimeout(timer);
+    if (e.name === "AbortError") throw new Error("Configuration request timed out");
+    throw new Error("Could not reach configuration endpoint");
+  }
+  clearTimeout(timer);
   const data = await response.json().catch(() => null);
-  if (!response.ok || !data || !data.ok) {
+  if (!response.ok || !data || data.ok === false) {
     throw new Error(data?.error || data?.message || `Configuration request failed (HTTP ${response.status})`);
   }
   return data;
@@ -998,4 +1009,4 @@ async function init() {
 init();
 </script>
 </body>
-  </html>
+</html>
