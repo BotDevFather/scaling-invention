@@ -988,7 +988,7 @@ document.querySelectorAll(".tab").forEach(button => button.addEventListener("cli
   if (activeTab === "settings") renderSettings();
 }));
 
-async function init() {
+function init() {
   if (!season || !botId) {
     errorBox("Missing URL parameters. Open this page with ?season=YOUR_API_KEY&bot_id=2881");
     return;
@@ -997,14 +997,13 @@ async function init() {
     errorBox("Invalid bot_id. A numeric bot ID is required.");
     return;
   }
-  try {
-    const data = await request(`/${encodeURIComponent(botId)}`);
-    bot = data.bot || data.data || data;
-    setHeader();
-    loadAnalyse();
-  } catch (e) {
-    errorBox(e.message, init);
-  }
+  request(`/${encodeURIComponent(botId)}`)
+    .then(data => {
+      bot = data.bot || data.data || data;
+      setHeader();
+      loadAnalyse();
+    })
+    .catch(e => errorBox(e.message, init));
 }
 init();
 </script>
