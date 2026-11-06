@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>Bot Dashboard</title>
+<title>Bot Configuration</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,7 +14,6 @@
   --bg:#f4f6fb;
   --bg-soft:#eef1f8;
   --surface:#ffffff;
-  --surface-2:#f8fafc;
   --border:#e4e8f0;
   --border-strong:#d4dae6;
   --text:#1a2233;
@@ -35,12 +34,11 @@
   --radius-lg:16px;
   --shadow-sm:0 1px 2px rgba(16,24,40,.05);
   --shadow:0 2px 8px rgba(16,24,40,.06),0 1px 2px rgba(16,24,40,.04);
-  --shadow-lg:0 12px 32px rgba(16,24,40,.10),0 2px 8px rgba(16,24,40,.04);
   --ring:0 0 0 3px rgba(99,102,241,.18);
   --transition:160ms cubic-bezier(.4,0,.2,1);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-input,textarea,select,[contenteditable]{-webkit-user-select:text;user-select:text}
+input,textarea,select{-webkit-user-select:text;user-select:text}
 html,body{height:100%}
 body{
   margin:0;font-family:var(--font);font-size:14px;line-height:1.5;
@@ -49,7 +47,7 @@ body{
   background-attachment:fixed;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-synthesis:none;
 }
-.shell{max-width:1080px;margin:0 auto;padding:28px 24px 60px}
+.shell{max-width:760px;margin:0 auto;padding:32px 24px 60px}
 .top{display:flex;align-items:center;gap:16px;margin-bottom:26px;flex-wrap:wrap}
 .avatar{
   width:56px;height:56px;border-radius:16px;
@@ -59,71 +57,20 @@ body{
   box-shadow:0 4px 12px rgba(99,102,241,.18),inset 0 1px 0 rgba(255,255,255,.6);
   border:1px solid rgba(99,102,241,.15);
 }
-.avatar img{width:100%;height:100%;object-fit:cover}
 .title{font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--text)}
 .subtitle{color:var(--text-soft);margin-top:3px;font-size:13px;font-weight:500}
-.pill{
-  margin-left:auto;display:inline-flex;align-items:center;gap:6px;
-  border:1px solid var(--border);background:var(--surface);
-  border-radius:999px;padding:7px 14px;font-size:12px;font-weight:600;
-  color:var(--text-soft);box-shadow:var(--shadow-sm);
-}
-.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 0 3px rgba(16,185,129,.18)}
-.tabs{
-  display:flex;gap:4px;background:var(--surface);
-  border:1px solid var(--border);border-radius:var(--radius-lg);
-  padding:5px;margin-bottom:24px;overflow-x:auto;
-  box-shadow:var(--shadow-sm);scrollbar-width:none;
-}
-.tabs::-webkit-scrollbar{display:none}
-.tab{
-  flex:0 0 auto;padding:10px 20px;border:0;background:transparent;
-  border-radius:calc(var(--radius-lg) - 5px);color:var(--text-soft);
-  font:inherit;font-weight:600;font-size:13px;cursor:pointer;
-  transition:all var(--transition);white-space:nowrap;
-}
-.tab:hover{color:var(--text);background:var(--bg-soft)}
-.tab.active{color:var(--brand);background:var(--brand-soft);box-shadow:inset 0 0 0 1px rgba(99,102,241,.12)}
-.content{min-height:240px;animation:fade .25s ease}
+.content{animation:fade .25s ease}
 @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.card,.panel{
+.panel{
   background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--radius-lg);padding:20px;min-width:0;
-  box-shadow:var(--shadow);transition:box-shadow var(--transition),transform var(--transition);
+  border-radius:var(--radius-lg);padding:22px;margin-bottom:16px;
+  box-shadow:var(--shadow);
 }
-.card:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
-.card{padding:18px}
-.label{font-size:11px;font-weight:600;color:var(--text-mute);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px}
-.value{font-size:26px;font-weight:800;letter-spacing:-.04em;color:var(--text);overflow-wrap:anywhere;line-height:1.15}
-.section{font-size:15px;font-weight:700;margin:0 0 16px;color:var(--text);letter-spacing:-.01em}
-.panel{margin-bottom:16px}
-.panel > .section:first-child{margin-top:0}
-.details{margin-top:16px}
-.row{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:13px 0;border-bottom:1px solid var(--border);min-height:44px}
-.row:last-child{border-bottom:0;padding-bottom:0}
-.row:first-child{padding-top:0}
-.row span:first-child{color:var(--text-soft);font-weight:500;font-size:13px}
-.row strong{text-align:right;overflow-wrap:anywhere;font-weight:600;font-size:13px;color:var(--text)}
-.loading{display:flex;align-items:center;justify-content:center;gap:12px;min-height:220px;color:var(--text-soft);font-weight:500}
-.spinner{width:22px;height:22px;border:2.5px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
-@keyframes spin{to{transform:rotate(360deg)}}
-.error{padding:16px 18px;border-radius:var(--radius);background:var(--danger-soft);color:var(--danger-text);border:1px solid rgba(239,68,68,.22);font-weight:500;font-size:13px}
-.empty{color:var(--text-soft);text-align:center;padding:40px 20px;font-size:13px;font-weight:500}
-.btn{
-  border:0;background:var(--brand);color:#fff;border-radius:var(--radius-sm);
-  padding:10px 16px;font:inherit;font-weight:600;font-size:13px;cursor:pointer;
-  transition:all var(--transition);box-shadow:0 1px 2px rgba(99,102,241,.25);
-  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
-}
-.btn:hover{background:var(--brand-hover);box-shadow:0 4px 12px rgba(99,102,241,.30);transform:translateY(-1px)}
-.btn:active{transform:translateY(0);box-shadow:0 1px 2px rgba(99,102,241,.25)}
-.btn:focus-visible{outline:none;box-shadow:var(--ring)}
-.btn.secondary{background:var(--surface);color:var(--text-soft);border:1px solid var(--border-strong);box-shadow:var(--shadow-sm)}
-.btn.secondary:hover{background:var(--bg-soft);color:var(--text);border-color:var(--border-strong);transform:translateY(-1px);box-shadow:var(--shadow)}
-.btn.danger{background:var(--danger);box-shadow:0 1px 2px rgba(239,68,68,.25)}
-.btn.danger:hover{background:#dc2626;box-shadow:0 4px 12px rgba(239,68,68,.30)}
-.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+.section{font-size:15px;font-weight:700;margin:0 0 6px;color:var(--text);letter-spacing:-.01em}
+.section-hint{color:var(--text-soft);font-size:12.5px;margin:0 0 16px;line-height:1.5}
+.field{display:grid;gap:8px;margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.field label{font-size:12px;font-weight:600;color:var(--text-soft);letter-spacing:.01em}
 input,textarea,select{
   width:100%;border:1px solid var(--border-strong);border-radius:var(--radius-sm);
   padding:11px 13px;font:inherit;font-size:13px;background:var(--surface);
@@ -133,53 +80,43 @@ input,textarea,select{
 input::placeholder,textarea::placeholder{color:var(--text-mute)}
 input:hover,textarea:hover,select:hover{border-color:#b9c2d1}
 input:focus,textarea:focus,select:focus{border-color:var(--brand);box-shadow:var(--ring)}
-textarea{min-height:110px;resize:vertical;line-height:1.55}
+textarea{min-height:120px;resize:vertical;line-height:1.55}
 select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7689' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;padding-right:36px}
-.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.field{display:grid;gap:8px;margin-bottom:14px;min-width:0}
-.field label,.subheading{font-size:12px;font-weight:600;color:var(--text-soft);letter-spacing:.01em}
-.checks{display:flex;flex-wrap:wrap;gap:8px 14px}
-.check{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text-soft);font-weight:500;cursor:pointer;padding:6px 0;transition:color var(--transition)}
-.check:hover{color:var(--text)}
-.check input{width:16px;height:16px;accent-color:var(--brand);cursor:pointer;margin:0}
-.split{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.status{font-size:11px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--brand-soft);color:var(--brand-text);white-space:nowrap;letter-spacing:.01em}
 .muted{color:var(--text-mute);font-size:12px;line-height:1.5}
-.hidden{display:none!important}
-.historyitem{border-bottom:1px solid var(--border);padding:16px 0}
-.historyitem:last-child{border-bottom:0;padding-bottom:0}
-.historyitem:first-child{padding-top:0}
-.historyitem strong{font-weight:700;font-size:14px}
-.historymeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
-.historyactions{display:flex;gap:8px;flex-wrap:wrap}
-.historyactions .btn{padding:7px 12px;font-size:12px}
-.editorgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
-.inline-row{border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:10px;background:var(--surface-2)}
-.inline-button{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto auto;gap:8px;margin-top:8px;align-items:center}
-.inline-button.wide{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}
-.chart{width:100%;height:180px;display:block;margin-top:8px}
-.notice{padding:12px 14px;border-radius:var(--radius-sm);background:var(--bg-soft);color:var(--text-soft);font-size:12.5px;font-weight:500;margin-bottom:14px;border:1px solid var(--border)}
-.notice.success{background:var(--success-soft);color:var(--success-text);border-color:rgba(16,185,129,.22)}
-.notice.error{background:var(--danger-soft);color:var(--danger-text);border-color:rgba(239,68,68,.22)}
+.notice{
+  padding:12px 14px;border-radius:var(--radius-sm);
+  background:var(--bg-soft);color:var(--text-soft);
+  font-size:12.5px;font-weight:500;margin-bottom:14px;
+  border:1px solid var(--border);line-height:1.6;
+}
+.notice strong{color:var(--text);font-weight:700}
+.btn{
+  border:0;background:var(--brand);color:#fff;border-radius:var(--radius-sm);
+  padding:11px 18px;font:inherit;font-weight:600;font-size:13px;cursor:pointer;
+  transition:all var(--transition);box-shadow:0 1px 2px rgba(99,102,241,.25);
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+}
+.btn:hover{background:var(--brand-hover);box-shadow:0 4px 12px rgba(99,102,241,.30);transform:translateY(-1px)}
+.btn:active{transform:translateY(0);box-shadow:0 1px 2px rgba(99,102,241,.25)}
+.btn:focus-visible{outline:none;box-shadow:var(--ring)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+.loading{display:flex;align-items:center;justify-content:center;gap:12px;min-height:220px;color:var(--text-soft);font-weight:500}
+.spinner{width:22px;height:22px;border:2.5px solid var(--border);border-top-color:var(--brand);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error{padding:16px 18px;border-radius:var(--radius);background:var(--danger-soft);color:var(--danger-text);border:1px solid rgba(239,68,68,.22);font-weight:500;font-size:13px}
+.status-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+.status-text{font-size:12.5px;font-weight:500;color:var(--text-soft)}
+.status-text.success{color:var(--success-text)}
+.status-text.error{color:var(--danger-text)}
 @media(max-width:680px){
-  .shell{padding:18px 16px 48px}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .card,.panel{padding:15px;border-radius:var(--radius)}
-  .value{font-size:22px}
+  .shell{padding:20px 16px 48px}
+  .panel{padding:18px;border-radius:var(--radius)}
   .title{font-size:19px}
   .avatar{width:48px;height:48px;font-size:20px;border-radius:14px}
-  .formgrid,.editorgrid{grid-template-columns:1fr}
-  .pill{display:none}
-  .tab{padding:9px 16px;font-size:12.5px}
-  .inline-button,.inline-button.wide{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .inline-button button,.inline-button.wide button{grid-column:1/-1}
-  .row{gap:12px}
-  .row strong{font-size:12.5px}
 }
-@media(max-width:380px){.grid{grid-template-columns:1fr}}
 @media(prefers-color-scheme:dark){
   :root{
-    --bg:#0c111b;--bg-soft:#151b28;--surface:#141b28;--surface-2:#101722;
+    --bg:#0c111b;--bg-soft:#151b28;--surface:#141b28;
     --border:#232c3d;--border-strong:#2d3850;--text:#e8ecf4;--text-soft:#94a0b8;
     --text-mute:#667085;--brand:#818cf8;--brand-hover:#a5b4fc;--brand-soft:#1e2440;
     --brand-text:#c7d2fe;--success-soft:#0d2b1e;--success-text:#6ee7b7;
@@ -187,70 +124,49 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
   }
   body{background-image:radial-gradient(circle at 0% 0%,rgba(129,140,248,.08),transparent 40%),radial-gradient(circle at 100% 0%,rgba(16,185,129,.06),transparent 40%)}
   .avatar{background:linear-gradient(135deg,#242b4d,#1e2440);color:var(--brand);box-shadow:0 4px 12px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05);border-color:rgba(129,140,248,.2)}
-  .card:hover{box-shadow:0 12px 32px rgba(0,0,0,.35)}
   .btn{box-shadow:0 1px 2px rgba(0,0,0,.3)}
-  .btn.secondary{background:var(--surface);color:var(--text-soft)}
-  .btn.secondary:hover{background:var(--bg-soft);color:var(--text)}
   select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a0b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")}
-  .inline-row{background:var(--surface-2)}
-  .chart{filter:brightness(.95)}
 }
 </style>
 </head>
 <body>
 <main class="shell">
-<header class="top"><div class="avatar" id="avatar">B</div><div><div class="title" id="botName">Bot overview</div><div class="subtitle" id="botSubtitle">Connecting…</div></div><span class="pill" id="botStatusPill">Connecting</span></header>
-<nav class="tabs" role="tablist" aria-label="Bot sections"><button class="tab active" role="tab" aria-selected="true" data-tab="analyse">Analyse</button><button class="tab" role="tab" aria-selected="false" data-tab="broadcast">Broadcast</button><button class="tab" role="tab" aria-selected="false" data-tab="settings">Settings</button></nav>
-<section id="content" class="content"><div class="loading"><span class="spinner"></span><span>Loading analytics…</span></div></section>
+<header class="top">
+  <div class="avatar" id="avatar">⚙</div>
+  <div>
+    <div class="title">Bot Configuration</div>
+    <div class="subtitle">Manage your bot's messages and join request behaviour</div>
+  </div>
+</header>
+<section id="content" class="content">
+  <div class="loading"><span class="spinner"></span><span>Loading configuration…</span></div>
+</section>
 </main>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-const tg = window.Telegram?.WebApp;
-if (tg) {
-  tg.ready();
-  const isDark = matchMedia("(prefers-color-scheme: dark)").matches;
-  const bg = tg.themeParams?.bg_color || (isDark ? "#0c111b" : "#f4f6fb");
-  try { tg.setHeaderColor(bg); tg.setBackgroundColor(bg); tg.expand?.(); } catch {}
-}
-
 const content = document.getElementById("content");
 
-let bot = null, analytics = null, broadcasts = [], commands = [];
-let statsTimer = null, statsInFlight = false, activeTab = "analyse";
-let inlineRows = [[{ text: "", type: "callback", value: "", style: "" }]];
-let extraPairs = [];
+const esc = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-const esc = v => String(v ?? "—").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const fmt = v => (v == null || v === "") ? "—" : v;
-const date = v => {
-  if (v == null || v === "") return "—";
-  const n = typeof v === "number" ? (v < 1e12 ? v * 1000 : v) : v;
-  const d = new Date(n);
-  return isNaN(d.getTime()) ? "—" : d.toLocaleString();
-};
-
-async function apiRequest(path, options = {}) {
+async function configRequest(payload) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 20000);
   let response;
   try {
-    response = await fetch(path, {
-      ...options,
+    response = await fetch("/api/bot-config", {
+      method: "POST",
       signal: ctrl.signal,
-      headers: {
-        ...(options.body ? { "Content-Type": "application/json" } : {}),
-        ...(options.headers || {})
-      }
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     });
   } catch (e) {
     clearTimeout(timer);
-    if (e.name === "AbortError") throw new Error("Request timed out");
-    throw new Error("Could not reach server");
+    if (e.name === "AbortError") throw new Error("Configuration request timed out");
+    throw new Error("Could not reach configuration endpoint");
   }
   clearTimeout(timer);
   const data = await response.json().catch(() => null);
-  if (!response.ok || !data || data.ok === false || data.success === false) {
-    throw new Error(data?.error || data?.message || data?.reason || `Request failed (HTTP ${response.status})`);
+  if (!response.ok || !data || data.ok === false) {
+    throw new Error(data?.error || data?.message || `Request failed (HTTP ${response.status})`);
   }
   return data;
 }
@@ -263,663 +179,56 @@ function errorBox(message, retryFn) {
     (retryFn ? `<button class="btn" id="retryBtn" style="margin-top:12px">Retry</button>` : "");
   if (retryFn) document.getElementById("retryBtn").onclick = retryFn;
 }
-function metric(label, value) {
-  return `<article class="card"><div class="label">${esc(label)}</div><div class="value">${esc(fmt(value))}</div></article>`;
-}
-function row(label, value) {
-  return `<div class="row"><span>${esc(label)}</span><strong>${esc(fmt(value))}</strong></div>`;
-}
-function stopStatsTimer() {
-  if (statsTimer) { clearInterval(statsTimer); statsTimer = null; }
-  statsInFlight = false;
-}
-function setHeader() {
-  document.getElementById("botName").textContent = bot?.bot_name || bot?.name || "Bot overview";
-  document.getElementById("botSubtitle").textContent = bot?.bot_username ? `@${bot.bot_username}` : "Connected";
-  document.getElementById("botStatusPill").textContent = bot ? "Online" : "Connecting";
-  const avatar = document.getElementById("avatar");
-  if (bot?.bot_photo || bot?.photo) avatar.innerHTML = `<img src="${esc(bot.bot_photo || bot.photo)}" alt="">`;
-  else avatar.textContent = (bot?.bot_name || bot?.name || "B").slice(0, 1).toUpperCase();
-}
-
-function getAnalyticsPayload(data) { return data.analytics || data.data || data; }
-
-function renderAnalyse() {
-  stopStatsTimer();
-  if (!analytics) { loadAnalyse(); return; }
-  const a = analytics;
-  const ads = a.ads || a.ad_analytics || {};
-  const chart = Array.isArray(ads.daily || a.ads_daily || a.daily_ads)
-    ? (ads.daily || a.ads_daily || a.daily_ads) : [];
-
-  content.innerHTML =
-    `<div class="split"><h2 class="section">Bot analytics</h2><button class="btn secondary" id="refreshAnalytics">Refresh</button></div>` +
-    `<div class="grid">` +
-      metric("Total users", a.total_users ?? a.totalUsers) +
-      metric("Active 24h", a.active_24h ?? a.active24h) +
-      metric("Active this month", a.active_month ?? a.activeMonth) +
-      metric("New today", a.new_today ?? a.newToday) +
-      metric("New this month", a.new_month ?? a.newMonth) +
-      metric("Premium users", a.premium_users ?? a.premiumUsers) +
-      metric("Private chats", a.private_chats ?? a.privateChats) +
-      metric("Group chats", a.group_chats ?? a.groupChats) +
-      metric("Channel chats", a.channel_chats ?? a.channelChats) +
-    `</div>` +
-    `<div class="panel details"><h2 class="section">Audience mix</h2>` +
-      row("Private chats", a.private_chats ?? a.privateChats) +
-      row("Groups", a.group_chats ?? a.groupChats) +
-      row("Channels", a.channel_chats ?? a.channelChats) +
-    `</div>` +
-    `<div class="panel"><h2 class="section">Ads analytics</h2>` +
-      `<div class="grid">` +
-        metric("Points this month", ads.month_points ?? a.ads_points_month) +
-        metric("Impressions this month", ads.month_impressions ?? a.ads_impressions_month) +
-        metric("Lifetime points", ads.lifetime_points ?? a.ads_earnings_total ?? bot?.ad_points) +
-        metric("Lifetime impressions", ads.lifetime_impressions ?? a.ads_impressions_total ?? bot?.ad_impressions) +
-        metric("Points / 1k impressions", ads.points_per_1k ?? a.ads_points_per_1k) +
-      `</div>` +
-      `<div class="split" style="margin-top:18px"><h3 class="section">Ads over time</h3>` +
-        `<select id="adsRange" style="width:auto"><option value="7">7 days</option><option value="15">15 days</option><option value="30">Month</option></select></div>` +
-      `<canvas class="chart" id="adsChart" aria-label="Ads over time chart"></canvas>` +
-      `<p class="muted">Blue is impressions. Green is ad points. ${chart.length ? "" : "No daily ads data returned by the API."}</p>` +
-    `</div>` +
-    `<p class="muted">Updated ${esc(date(a.calculated_at || a.updated_at))}</p>`;
-
-  document.getElementById("refreshAnalytics").onclick = loadAnalyse;
-  document.getElementById("adsRange").onchange = () =>
-    drawChart(chart, Number(document.getElementById("adsRange").value));
-  drawChart(chart, 7);
-}
-
-function drawChart(items, range) {
-  const canvas = document.getElementById("adsChart");
-  if (!canvas) return;
-  const isDark = matchMedia("(prefers-color-scheme: dark)").matches;
-  const gridColor = isDark ? "#232c3d" : "#e4e8f0";
-  const labelColor = isDark ? "#94a0b8" : "#6b7689";
-
-  const ctx = canvas.getContext("2d");
-  const w = canvas.clientWidth || 600, h = 180, dpr = window.devicePixelRatio || 1;
-  canvas.width = w * dpr; canvas.height = h * dpr;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, w, h);
-
-  const data = Array.isArray(items) ? items.slice(-range) : [];
-  const im = data.map(x => Number(x.impressions ?? x.ad_impressions ?? 0));
-  const pts = data.map(x => Number(x.points ?? x.ad_points ?? 0));
-  const max = Math.max(1, ...im, ...pts);
-
-  ctx.strokeStyle = gridColor;
-  for (let j = 0; j < 4; j++) {
-    const y = 12 + j * (h - 30) / 3;
-    ctx.beginPath(); ctx.moveTo(25, y); ctx.lineTo(w - 8, y); ctx.stroke();
-  }
-
-  ctx.fillStyle = labelColor;
-  ctx.font = "10px sans-serif";
-  if (!data.length) { ctx.fillText("No daily ads data", 25, 90); return; }
-
-  const step = (w - 40) / data.length;
-  data.forEach((d, i) => {
-    const x = 28 + i * step;
-    const bar = Math.max(2, (h - 42) * im[i] / max);
-    const point = Math.max(2, (h - 42) * pts[i] / max);
-    ctx.fillStyle = "#6366f1";
-    ctx.fillRect(x, h - 22 - bar, Math.max(2, step * .35), bar);
-    ctx.fillStyle = "#10b981";
-    ctx.fillRect(x + Math.max(3, step * .4), h - 22 - point, Math.max(2, step * .35), point);
-  });
-
-  ctx.fillStyle = labelColor; ctx.fillText("Impressions", 26, 10);
-  ctx.fillStyle = isDark ? "#34d399" : "#059669"; ctx.fillText("Ad points", 100, 10);
-}
-
-async function loadAnalyse() {
-  activeTab = "analyse";
-  stopStatsTimer();
-  loading("Loading analytics…");
-  try {
-    const data = await apiRequest("/api/bot?action=analytics");
-    analytics = getAnalyticsPayload(data);
-    renderAnalyse();
-  } catch (e) {
-    errorBox(e.message, loadAnalyse);
-  }
-}
-
-const kinds = {
-  message:   { method: "sendMessage",      label: "Message" },
-  photo:     { method: "sendPhoto",        label: "Photo",        media: "photo" },
-  video:     { method: "sendVideo",        label: "Video",        media: "video" },
-  file:      { method: "sendDocument",     label: "File",         media: "document" },
-  animation: { method: "sendAnimation",    label: "GIF",          media: "animation" },
-  rich:      { method: "sendRichMessage",  label: "Rich message", rich: true }
-};
-
-function syncInlineRowsFromDom() {
-  const host = document.getElementById("inlineRows");
-  if (!host) return;
-  const rows = [...host.querySelectorAll(".inline-row")].map(rowEl =>
-    [...rowEl.querySelectorAll(".inline-button")].map(b => ({
-      text:  b.querySelector('[data-prop="text"]')?.value ?? "",
-      type:  b.querySelector('[data-prop="type"]')?.value ?? "callback",
-      value: b.querySelector('[data-prop="value"]')?.value ?? "",
-      style: b.querySelector('[data-prop="style"]')?.value ?? ""
-    }))
-  ).filter(r => r.length);
-  inlineRows = rows.length ? rows : [[{ text: "", type: "callback", value: "", style: "" }]];
-}
-
-function renderInlineRows() {
-  const host = document.getElementById("inlineRows");
-  if (!host) return;
-  host.innerHTML = inlineRows.map((row, i) =>
-    `<div class="inline-row">
-      <div class="split"><strong class="subheading">Row ${i + 1}</strong>
-        <button type="button" class="btn secondary" data-remove-row="${i}">Remove row</button></div>
-      ${row.map((b, j) =>
-        `<div class="inline-button">
-          <input aria-label="Button text" placeholder="Button text" data-ri="${i}" data-bi="${j}" data-prop="text" value="${esc(b.text)}">
-          <select aria-label="Button type" data-ri="${i}" data-bi="${j}" data-prop="type">
-            <option value="callback" ${b.type === "callback" ? "selected" : ""}>Callback</option>
-            <option value="url" ${b.type === "url" ? "selected" : ""}>URL</option>
-          </select>
-          <input aria-label="Button URL or callback data" placeholder="${b.type === "url" ? "https://example.com" : "callback_data"}"
-            data-ri="${i}" data-bi="${j}" data-prop="value" value="${esc(b.value)}">
-          <select aria-label="Button style" data-ri="${i}" data-bi="${j}" data-prop="style">
-            <option value="">Default</option>
-            <option value="primary" ${b.style === "primary" ? "selected" : ""}>Blue</option>
-            <option value="success" ${b.style === "success" ? "selected" : ""}>Green</option>
-            <option value="danger"  ${b.style === "danger"  ? "selected" : ""}>Red</option>
-          </select>
-          <button type="button" class="btn secondary" data-remove-button="${i},${j}">Remove</button>
-        </div>`).join("")}
-      <button type="button" class="btn secondary" data-add-button="${i}" style="margin-top:8px">Add button</button>
-    </div>`).join("");
-
-  host.querySelectorAll("[data-remove-row]").forEach(el => el.onclick = () => {
-    inlineRows.splice(+el.dataset.removeRow, 1);
-    if (!inlineRows.length) inlineRows = [[{ text: "", type: "callback", value: "", style: "" }]];
-    renderInlineRows();
-  });
-  host.querySelectorAll("[data-add-button]").forEach(el => el.onclick = () => {
-    inlineRows[+el.dataset.addButton].push({ text: "", type: "callback", value: "", style: "" });
-    renderInlineRows();
-  });
-  host.querySelectorAll("[data-remove-button]").forEach(el => el.onclick = () => {
-    const [i, j] = el.dataset.removeButton.split(",").map(Number);
-    inlineRows[i].splice(j, 1);
-    if (!inlineRows[i].length) inlineRows.splice(i, 1);
-    if (!inlineRows.length) inlineRows = [[{ text: "", type: "callback", value: "", style: "" }]];
-    renderInlineRows();
-  });
-}
-
-function syncExtrasFromDom() {
-  const host = document.getElementById("extraParams");
-  if (!host) return;
-  const next = [...host.querySelectorAll("[data-extra]")];
-  const grouped = new Map();
-  next.forEach(el => {
-    const i = +el.dataset.extra;
-    if (!grouped.has(i)) grouped.set(i, { key: "", value: "" });
-    grouped.get(i)[el.dataset.prop] = el.value;
-  });
-  extraPairs = [...grouped.values()];
-}
-function renderExtraParams() {
-  const host = document.getElementById("extraParams");
-  if (!host) return;
-  host.innerHTML = extraPairs.map((p, i) =>
-    `<div class="inline-button wide">
-      <input placeholder="key" value="${esc(p.key)}" data-extra="${i}" data-prop="key">
-      <input placeholder="value" value="${esc(p.value)}" data-extra="${i}" data-prop="value">
-      <button class="btn secondary" type="button" data-extra-remove="${i}">Remove</button>
-    </div>`).join("");
-  host.querySelectorAll("[data-extra-remove]").forEach(el => el.onclick = () => {
-    syncExtrasFromDom();
-    extraPairs.splice(+el.dataset.extraRemove, 1);
-    renderExtraParams();
-  });
-}
-
-function activeIds() {
-  return broadcasts
-    .map(b => b.broadcast_id || b.broadcastId || b.id || b._id)
-    .filter(Boolean);
-}
-
-function buildHistoryHtml() {
-  if (!broadcasts.length) {
-    return `<div class="empty">No broadcasts yet. Send a message or run a command for every matching chat.</div>`;
-  }
-  return broadcasts.map(b => {
-    const id = b.broadcast_id || b.broadcastId || b.id || b._id;
-    const status = String(b.status || "unknown");
-    const total = b.total_chats ?? b.totalTargetChats ?? b.total_chats_count;
-    const processed = b.processed ?? b.processed_chats ?? b.processed_count;
-    const success = b.success ?? b.success_count ?? b.sent;
-    const failed = b.failed ?? b.failed_count;
-    const isRunning = ["processing","running","pending","queued","started"].includes(status.toLowerCase());
-    return `<article class="historyitem">
-      <div class="split"><strong>${esc(b.command || b.title || b.method || b.api_method || "Broadcast")}</strong>
-        <span class="status">${esc(status)}</span></div>
-      <div class="historymeta">
-        <span class="muted">${esc(date(b.created_at || b.createdAt))}</span>
-        ${id ? `<span class="status">ID ${esc(id)}</span>` : ""}
-      </div>
-      <div class="grid">${metric("Total", total)}${metric("Processed", processed)}${metric("Success", success)}${metric("Failed", failed)}</div>
-      <div class="historyactions" style="margin-top:10px">
-        ${id && isRunning ? `<button class="btn danger" data-stop="${esc(id)}">Stop</button>` : ""}
-        ${id ? `<button class="btn secondary" data-delete="${esc(id)}">Delete</button>` : ""}
-      </div>
-    </article>`;
-  }).join("");
-}
-
-function renderHistory() {
-  const host = document.getElementById("broadcastHistory");
-  if (!host) return;
-  host.innerHTML = buildHistoryHtml();
-  host.querySelectorAll("[data-stop]").forEach(el => el.onclick = () => stopBroadcast(el.dataset.stop));
-  host.querySelectorAll("[data-delete]").forEach(el => el.onclick = () => deleteBroadcast(el.dataset.delete));
-}
-
-function renderBroadcasts() {
-  stopStatsTimer();
-  content.innerHTML =
-    `<div class="panel">
-      <div class="split"><h2 class="section">New broadcast</h2><span class="muted">Send messages to matching chats</span></div>
-      <div id="broadcastNotice"></div>
-      <form id="broadcastForm">
-        <div class="field"><label for="mode">Broadcast mode</label>
-          <select id="mode"><option value="content">Content</option><option value="command">Command</option></select></div>
-
-        <div id="contentFields">
-          <div class="field"><label for="apiKind">Message type</label>
-            <select id="apiKind">${Object.entries(kinds).map(([id, k]) => `<option value="${id}">${esc(k.label)}</option>`).join("")}</select></div>
-          <div id="textField" class="field"><label for="text">Message text</label>
-            <textarea id="text" placeholder="Message text…"></textarea></div>
-          <div id="richField" class="hidden">
-            <div class="field"><label for="richMode">Rich format</label>
-              <select id="richMode"><option value="markdown">Markdown</option><option value="html">HTML</option></select></div>
-          </div>
-          <div id="mediaField" class="field hidden"><label for="mediaUrl" id="mediaLabel">Media URL</label>
-            <input id="mediaUrl" type="url" placeholder="https://example.com/media.jpg"></div>
-          <div class="field"><label for="caption">Caption (optional)</label>
-            <textarea id="caption" placeholder="Caption (optional)…" style="min-height:70px"></textarea></div>
-          <div class="field"><label for="parseMode">Parse mode</label>
-            <select id="parseMode">
-              <option value="">None</option><option value="Markdown">Markdown</option>
-              <option value="MarkdownV2">MarkdownV2</option><option value="HTML">HTML</option>
-            </select></div>
-          <div class="field"><label>Inline keyboard</label>
-            <div class="muted">Each row contains buttons. Choose URL or callback data for each button.</div>
-            <div id="inlineRows"></div>
-            <button type="button" class="btn secondary" id="addInlineRow" style="margin-top:10px">Add row</button></div>
-          <div class="checks">
-            <label class="check"><input id="silent" type="checkbox"> Silent</label>
-            <label class="check"><input id="protect" type="checkbox"> Protect content</label>
-            <label class="check"><input id="noPreview" type="checkbox"> Disable link preview</label>
-            <label class="check"><input id="spoiler" type="checkbox"> Spoiler</label>
-          </div>
-        </div>
-
-        <div id="commandField" class="field hidden"><label for="command">Command</label>
-          <select id="command"><option value="">Loading commands…</option></select></div>
-
-        <div class="field"><label>Audience</label>
-          <div class="checks">
-            <label class="check"><input type="checkbox" name="audience" value="private"> Private</label>
-            <label class="check"><input type="checkbox" name="audience" value="group"> Groups</label>
-            <label class="check"><input type="checkbox" name="audience" value="channel"> Channels</label>
-          </div>
-          <div class="muted">Leave all chat types unchecked to reach every chat type.</div></div>
-
-        <div class="formgrid">
-          <div class="field"><label for="premium">Premium users</label>
-            <select id="premium"><option value="false">All users</option><option value="true">Premium only</option></select></div>
-          <div class="field"><label for="speed">Send rate (messages/second)</label>
-            <input id="speed" type="number" min="5" max="25" value="10"></div>
-        </div>
-
-        <div class="field"><div class="split"><label>Extra parameters</label>
-          <button type="button" class="btn secondary" id="addExtra">Add parameter</button></div>
-          <div class="muted">Any extra Telegram body field. Use true/false, numbers, or JSON.</div>
-          <div id="extraParams"></div></div>
-
-        <button class="btn" id="sendButton" type="submit">Start broadcast</button>
-        <span class="muted" id="sendState" style="margin-left:10px"></span>
-      </form>
-    </div>
-    <div class="panel">
-      <div class="split"><h2 class="section">Broadcast history</h2>
-        <button class="btn secondary" id="refreshBroadcasts" type="button">Refresh</button></div>
-      <div id="broadcastHistory">${buildHistoryHtml()}</div>
-    </div>`;
-
-  document.getElementById("broadcastForm").addEventListener("submit", sendBroadcast);
-  document.getElementById("refreshBroadcasts").onclick = loadBroadcasts;
-  document.getElementById("mode").onchange = toggleMode;
-  document.getElementById("apiKind").onchange = toggleKind;
-  document.getElementById("addInlineRow").onclick = () => {
-    syncInlineRowsFromDom();
-    inlineRows.push([{ text: "", type: "callback", value: "", style: "" }]);
-    renderInlineRows();
-  };
-  document.getElementById("addExtra").onclick = () => {
-    syncExtrasFromDom();
-    extraPairs.push({ key: "", value: "" });
-    renderExtraParams();
-  };
-
-  renderHistory();
-  renderInlineRows();
-  renderExtraParams();
-  toggleMode();
-  toggleKind();
-  fillCommands();
-  watchStats();
-}
-
-function toggleMode() {
-  const isCommand = document.getElementById("mode").value === "command";
-  document.getElementById("contentFields").classList.toggle("hidden", isCommand);
-  document.getElementById("commandField").classList.toggle("hidden", !isCommand);
-}
-function toggleKind() {
-  const id = document.getElementById("apiKind").value, k = kinds[id];
-  document.getElementById("textField").classList.toggle("hidden", !!k.media);
-  document.getElementById("richField").classList.toggle("hidden", !k.rich);
-  document.getElementById("mediaField").classList.toggle("hidden", !k.media);
-  document.getElementById("caption").parentElement.classList.toggle("hidden", !k.media);
-  document.getElementById("parseMode").parentElement.classList.toggle("hidden", !!k.rich || !!k.media);
-  document.getElementById("spoiler").parentElement.classList.toggle("hidden", !["photo","video","animation"].includes(id));
-  document.getElementById("mediaLabel").textContent =
-    ({ photo: "Photo URL", video: "Video URL", file: "File URL", animation: "Animation / GIF URL" })[id] || "Media URL";
-  document.getElementById("mediaUrl").placeholder =
-    `https://example.com/${id === "photo" ? "media.jpg" : id === "video" ? "video.mp4" : id === "animation" ? "animation.gif" : "file.pdf"}`;
-}
-
-async function fillCommands() {
-  const select = document.getElementById("command");
-  if (!select) return;
-  if (commands.length) {
-    select.innerHTML = commands.map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("");
-    return;
-  }
-  try {
-    const data = await apiRequest("/api/bot?action=commands");
-    const items = Array.isArray(data.commands) ? data.commands
-                : Array.isArray(data.data) ? data.data : [];
-    commands = items.filter(c => c?.name);
-    select.innerHTML = commands.length
-      ? commands.map(c => `<option value="${esc(c.name)}">${esc(c.name)}</option>`).join("")
-      : '<option value="">No commands found</option>';
-  } catch {
-    select.innerHTML = '<option value="">Could not load commands</option>';
-  }
-}
-
-function parseExtra() {
-  const result = {};
-  extraPairs.forEach(p => {
-    const key = String(p.key || "").trim();
-    const value = String(p.value ?? "").trim();
-    if (!key || Object.hasOwn(result, key)) return;
-    let parsed = value;
-    if (value === "true") parsed = true;
-    else if (value === "false") parsed = false;
-    else if (/^-?\d+(\.\d+)?$/.test(value)) parsed = Number(value);
-    else if ((value.startsWith("{") && value.endsWith("}")) || (value.startsWith("[") && value.endsWith("]"))) {
-      try { parsed = JSON.parse(value); } catch {}
-    }
-    result[key] = parsed;
-  });
-  return result;
-}
-
-function buildPayload() {
-  syncInlineRowsFromDom();
-  syncExtrasFromDom();
-
-  const mode = document.getElementById("mode").value;
-  const filters = { premiumOnly: document.getElementById("premium").value === "true" };
-  const chats = [...document.querySelectorAll('input[name="audience"]:checked')].map(el => el.value);
-  if (chats.length === 1) filters.chatType = chats[0];
-  else if (chats.length > 1) filters.chatType = chats;
-
-  const payload = {
-    speed_limit: Math.max(5, Math.min(25, Number(document.getElementById("speed").value) || 10)),
-    filters
-  };
-
-  if (mode === "command") {
-    payload.command = document.getElementById("command").value;
-  } else {
-    const id = document.getElementById("apiKind").value;
-    const k = kinds[id];
-    const text = document.getElementById("text").value.trim();
-    const caption = document.getElementById("caption").value.trim();
-    const media = document.getElementById("mediaUrl").value.trim();
-    const body = {};
-
-    if (k.rich) {
-      body.rich_message = document.getElementById("richMode").value === "html"
-        ? { html: text } : { markdown: text };
-    } else if (k.media) {
-      body[k.media] = media;
-      if (caption) body.caption = caption;
-    } else {
-      body.text = text;
-    }
-
-    if (!k.rich && !k.media && document.getElementById("parseMode").value) {
-      body.parse_mode = document.getElementById("parseMode").value;
-    }
-
-    const buttons = inlineRows
-      .map(r => r.filter(b => b.text.trim()).map(b => {
-        const out = { text: b.text.trim() };
-        if (b.type === "url") out.url = b.value.trim();
-        else out.callback_data = (b.value.trim() || b.text.trim()).slice(0, 64);
-        if (["primary","success","danger"].includes(b.style)) out.style = b.style;
-        return out;
-      }))
-      .filter(r => r.length);
-
-    if (buttons.length) body.reply_markup = { inline_keyboard: buttons };
-    if (document.getElementById("silent").checked) body.disable_notification = true;
-    if (document.getElementById("protect").checked) body.protect_content = true;
-    if (id === "message" && document.getElementById("noPreview").checked) body.disable_web_page_preview = true;
-    if (["photo","video","animation"].includes(id) && document.getElementById("spoiler").checked) body.has_spoiler = true;
-
-    Object.assign(body, parseExtra());
-    payload.method = k.method;
-    payload.body = body;
-  }
-  return payload;
-}
-
-async function sendBroadcast(event) {
-  event.preventDefault();
-  const button = document.getElementById("sendButton");
-  const state = document.getElementById("sendState");
-  const notice = document.getElementById("broadcastNotice");
-  const payload = buildPayload();
-
-  if (payload.command !== undefined && !payload.command) { state.textContent = "Choose a command first"; return; }
-  if (payload.method) {
-    const kind = document.getElementById("apiKind").value;
-    if (kinds[kind].media && !payload.body[kinds[kind].media]) { state.textContent = "Enter a media URL"; return; }
-    if (kinds[kind].rich && !payload.body.rich_message.markdown && !payload.body.rich_message.html) {
-      state.textContent = "Enter rich message content"; return;
-    }
-    if (kind === "message" && !payload.body.text) { state.textContent = "Enter message text"; return; }
-  }
-
-  button.disabled = true; button.textContent = "Starting…";
-  state.textContent = "Sending request…";
-  notice.innerHTML = "";
-
-  try {
-    const data = await apiRequest("/api/bot?action=broadcast", {
-      method: "POST",
-      body: JSON.stringify(payload)
-    });
-    state.textContent = `Broadcast started${data.broadcastId ? ` · ${data.broadcastId}` : ""}`;
-    const textEl = document.getElementById("text");
-    if (textEl) textEl.value = "";
-    await loadBroadcasts();
-  } catch (e) {
-    state.textContent = e.message;
-    notice.innerHTML = `<div class="notice error">${esc(e.message)}</div>`;
-  } finally {
-    const current = document.getElementById("sendButton");
-    if (current) { current.disabled = false; current.textContent = "Start broadcast"; }
-  }
-}
-
-async function loadBroadcasts() {
-  activeTab = "broadcast";
-  stopStatsTimer();
-  const hasForm = !!document.getElementById("broadcastForm");
-  if (!hasForm) loading("Loading broadcasts…");
-
-  try {
-    const data = await apiRequest("/api/bot?action=broadcast-list");
-    broadcasts = extractBroadcasts(data);
-    if (hasForm) {
-      renderHistory();
-      watchStats();
-    } else {
-      renderBroadcasts();
-    }
-  } catch (e) {
-    errorBox(e.message, loadBroadcasts);
-  }
-}
-
-function extractBroadcasts(data) {
-  for (const key of ["data","broadcasts","jobs","items"]) {
-    const v = data?.[key];
-    if (Array.isArray(v)) return v;
-    if (Array.isArray(v?.data)) return v.data;
-    if (Array.isArray(v?.jobs)) return v.jobs;
-  }
-  return Array.isArray(data) ? data : [];
-}
-
-function watchStats() {
-  stopStatsTimer();
-  const ids = activeIds();
-  if (!ids.length) return;
-
-  const update = async () => {
-    if (statsInFlight) return;
-    statsInFlight = true;
-    try {
-      const updates = await Promise.all(ids.map(async id => {
-        try {
-          const data = await apiRequest(`/api/bot?action=broadcast-stats&id=${encodeURIComponent(id)}`);
-          return { id, data: data.stats || data.data || data };
-        } catch { return null; }
-      }));
-      let changed = false;
-      updates.filter(Boolean).forEach(u => {
-        const item = broadcasts.find(b =>
-          String(b.broadcast_id || b.broadcastId || b.id || b._id) === String(u.id));
-        if (item) { Object.assign(item, u.data, { broadcast_id: u.id }); changed = true; }
-      });
-      if (changed) renderHistory();
-    } finally {
-      statsInFlight = false;
-    }
-  };
-
-  update();
-  statsTimer = setInterval(update, 3000);
-}
-
-async function stopBroadcast(id) {
-  const ok = tg?.showConfirm
-    ? await new Promise(res => tg.showConfirm("Stop this broadcast? Remaining chats will not be sent.", res))
-    : confirm("Stop this broadcast? Remaining chats will not be sent.");
-  if (!ok) return;
-  try {
-    await apiRequest("/api/bot?action=broadcast-stop", {
-      method: "POST",
-      body: JSON.stringify({ id })
-    });
-    await loadBroadcasts();
-  } catch (e) { alert(e.message); }
-}
-
-async function deleteBroadcast(id) {
-  const ok = tg?.showConfirm
-    ? await new Promise(res => tg.showConfirm("Remove this broadcast from history?", res))
-    : confirm("Remove this broadcast from history?");
-  if (!ok) return;
-  try {
-    await apiRequest("/api/bot?action=broadcast-delete", {
-      method: "POST",
-      body: JSON.stringify({ id })
-    });
-    broadcasts = broadcasts.filter(b =>
-      String(b.broadcast_id || b.broadcastId || b.id || b._id) !== String(id));
-    renderHistory();
-  } catch (e) { alert(e.message); }
-}
 
 async function renderSettings() {
-  activeTab = "settings";
-  stopStatsTimer();
-  loading("Loading bot settings…");
+  loading("Loading configuration…");
 
   try {
-    const data = await apiRequest("/api/bot-config", {
-      method: "POST",
-      body: JSON.stringify({ action: "get_config" })
-    });
+    const data = await configRequest({ action: "get_config" });
     const config = data.config || {};
 
     content.innerHTML = `
       <div class="panel">
-        <h2 class="section">Bot messages</h2>
-
+        <h2 class="section">Start Message</h2>
+        <p class="section-hint">This message is shown when someone sends <code>/start</code> to your bot.</p>
         <div class="field">
-          <label for="startMessage">Start message</label>
-          <textarea id="startMessage" placeholder="Welcome to our bot...">${esc(config.start_message || "")}</textarea>
-          <span class="muted">Displayed when someone starts the bot.</span>
-        </div>
-
-        <div class="field">
-          <label for="requestMessage">Join request message</label>
-          <textarea id="requestMessage" placeholder="Your join request has been received...">${esc(config.request_message || "")}</textarea>
-          <span class="muted">Sent privately to users who request to join.</span>
+          <textarea id="startMessage" placeholder="Welcome to my bot!">${esc(config.start_message || "")}</textarea>
         </div>
       </div>
 
       <div class="panel">
-        <h2 class="section">Request handling mode</h2>
+        <h2 class="section">Join Request Message</h2>
+        <p class="section-hint">This message is sent privately to users who request to join your channel or group.</p>
+        <div class="field">
+          <textarea id="requestMessage" placeholder="Your join request has been received.">${esc(config.request_message || "")}</textarea>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section">Join Request Behaviour</h2>
+        <p class="section-hint">Choose how your bot should respond to join requests.</p>
 
         <div class="field">
-          <label for="requestMode">Operating mode</label>
+          <label for="requestMode">Behaviour</label>
           <select id="requestMode">
-            <option value="ACCEPT_ONLY">Accept only</option>
-            <option value="DM_ONLY">DM only</option>
-            <option value="BOTH">Accept + DM</option>
+            <option value="ACCEPT_ONLY">Accept only — Approve without sending a DM</option>
+            <option value="DM_ONLY">DM only — Send DM without approving</option>
+            <option value="BOTH">Accept + DM — Approve and send DM</option>
           </select>
         </div>
 
         <div class="notice">
-          <strong>Accept only:</strong> Approve requests without sending a DM.<br><br>
-          <strong>DM only:</strong> Send a DM without approving.<br><br>
-          <strong>Accept + DM:</strong> Perform both actions.
+          <strong>Accept only:</strong> Approves the join request silently.<br>
+          <strong>DM only:</strong> Sends the configured DM without approving the request.<br>
+          <strong>Accept + DM:</strong> Approves the request and sends the configured DM.
         </div>
+      </div>
 
-        <button class="btn" id="saveConfig">Save configuration</button>
-        <span class="muted" id="configStatus" style="margin-left:10px"></span>
+      <div class="panel">
+        <div class="status-row">
+          <button class="btn" id="saveConfig">Save configuration</button>
+          <span class="status-text" id="configStatus"></span>
+        </div>
       </div>
     `;
 
@@ -944,44 +253,22 @@ async function saveConfiguration() {
   button.disabled = true;
   button.textContent = "Saving…";
   status.textContent = "";
+  status.className = "status-text";
 
   try {
-    await apiRequest("/api/bot-config", {
-      method: "POST",
-      body: JSON.stringify(payload)
-    });
+    await configRequest(payload);
     status.textContent = "✓ Configuration saved successfully";
+    status.className = "status-text success";
   } catch (error) {
     status.textContent = error.message;
+    status.className = "status-text error";
   } finally {
     button.disabled = false;
     button.textContent = "Save configuration";
   }
 }
 
-document.querySelectorAll(".tab").forEach(button => button.addEventListener("click", () => {
-  document.querySelectorAll(".tab").forEach(tab => {
-    const on = tab === button;
-    tab.classList.toggle("active", on);
-    tab.setAttribute("aria-selected", String(on));
-  });
-  activeTab = button.dataset.tab;
-  if (activeTab === "analyse") loadAnalyse();
-  if (activeTab === "broadcast") loadBroadcasts();
-  if (activeTab === "settings") renderSettings();
-}));
-
-async function init() {
-  try {
-    const data = await apiRequest("/api/bot?action=info");
-    bot = data.bot || data.data || data;
-    setHeader();
-    loadAnalyse();
-  } catch (e) {
-    errorBox(e.message, init);
-  }
-}
-init();
+renderSettings();
 </script>
 </body>
 </html>
