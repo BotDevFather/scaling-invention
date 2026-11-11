@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     });
   }
 
-  const webhookUrl = process.env.TBL_BROADCAST_WEBHOOK_URL;
+  const webhookUrl = "https://webapp.telebothost.com/ownlang/webhook/120462008075532?command=updateConfig&sig=6ef779c506185e3c002e67fa83b556a17bb83786b16a5d1b5a922a0faa2b9b24&gl=1";
 
   if (!webhookUrl) {
     return res.status(500).json({
