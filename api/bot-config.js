@@ -7,12 +7,21 @@ export default async function handler(req, res) {
     });
   }
 
-  const webhookUrl = "https://webapp.telebothost.com/ownlang/webhook/120462008075532?command=updateConfig&sig=6ef779c506185e3c002e67fa83b556a17bb83786b16a5d1b5a922a0faa2b9b24&gl=1";
+  const webhookUrl = process.env.TBL_BROADCAST_WEBHOOK_URL;
 
   if (!webhookUrl) {
     return res.status(500).json({
       ok: false,
-      error: "Webhook URL not configured"
+      error: "Broadcast webhook is not configured"
+    });
+  }
+
+  const { message } = req.body || {};
+
+  if (typeof message !== "string" || !message.trim()) {
+    return res.status(400).json({
+      ok: false,
+      error: "Message is required"
     });
   }
 
@@ -23,13 +32,26 @@ export default async function handler(req, res) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        params: req.body
+        params: {
+          message: message.trim()
+        }
       })
     });
 
-    const result = await response.json();
+    const result = await response.json().catch(() => null);
 
-    return res.status(response.status).json(result);
+    if (!response.ok || !result || result.ok === false) {
+      return res.status(response.status || 502).json({
+        ok: false,
+        error: result?.error || "Broadcast webhook failed"
+      });
+    }
+
+    return res.status(200).json({
+      ok: true,
+      result
+    });
+
   } catch (error) {
     return res.status(502).json({
       ok: false,
